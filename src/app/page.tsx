@@ -3,6 +3,9 @@
 import React, { ReactNode } from "react";
 import heroImgUrl from "./assets/E-Commerce/image1174.png";
 import products from "./assets/Product-Dummy-Data/Product.json";
+import { useEffect, useState } from "react";
+import { Heart } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
 
 const Hero = () => {
   return (
@@ -12,7 +15,7 @@ const Hero = () => {
         backgroundImage: `url(${heroImgUrl.src})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
-        backgroundRepeat: "no-repeat"
+        backgroundRepeat: "no-repeat",
       }}
     >
       <div className="flex flex-col absolute left-8 bottom-8">
@@ -24,6 +27,7 @@ const Hero = () => {
 };
 
 interface Props {
+  size: string;
   _id: string;
   productName: string;
   categoryId: string;
@@ -41,7 +45,7 @@ interface Props {
 
 const Item = ({ _id, price }: Props) => {
   {
-    products.map(product => console.log(product));
+    products.map((product) => console.log(product));
   }
   return;
 };
@@ -49,7 +53,7 @@ const Item = ({ _id, price }: Props) => {
 const ItemShowUp = () => {
   return (
     <div>
-      {products.map(product => {
+      {products.map((product) => {
         return <span>sa</span>;
       })}
     </div>
