@@ -1,11 +1,10 @@
 "use client";
 
-import React from "react";
+import React, { ReactNode } from "react";
 import heroImgUrl from "./assets/E-Commerce/image1174.png";
 import products from "./assets/Product-Dummy-Data/Product.json";
 
 const Hero = () => {
-  console.log(products);
   return (
     <div
       className="w-full h-[500px] relative rounded-[16px]"
@@ -40,17 +39,30 @@ interface Props {
   updatedAt: string;
 }
 
-const Item = () => {
+const Item = ({ _id, price }: Props) => {
+  {
+    products.map(product => console.log(product));
+  }
   return;
 };
 
+const ItemShowUp = () => {
+  return (
+    <div>
+      {products.map(product => {
+        return <span>sa</span>;
+      })}
+    </div>
+  );
+};
+
 export default function Home() {
-  console.table("HOME component rendered");
+  console.log(products);
 
   return (
     <div className="max-w-[1040px] m-auto my-14">
       <Hero />
-      asdas1111
+      <ItemShowUp />
     </div>
   );
 }
