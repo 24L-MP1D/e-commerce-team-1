@@ -25,7 +25,7 @@ const Hero = () => {
           backgroundImage: `url(${heroImgUrl.src})`,
           backgroundSize: "cover",
           backgroundPosition: "center",
-          backgroundRepeat: "no-repeat"
+          backgroundRepeat: "no-repeat",
         }}
       >
         <div className="flex flex-col absolute left-8 bottom-8">
@@ -59,7 +59,7 @@ interface Props {
 const Item = ({
   data,
   className,
-  likeable
+  likeable,
 }: {
   data: Props;
   className: string;
@@ -99,7 +99,7 @@ const Item = ({
           }}
           className="z-50 right-2 top-2 absolute p-2"
         >
-          <Heart fill={saved ? 'black' : 'none'}/>
+          <Heart fill={saved ? "black" : "none"} />
         </button>
       )}
     </div>
