@@ -24,6 +24,7 @@ type Product = {
   viewsCount: number;
   createdAt: string;
   updatedAt: string;
+  size: string;
 };
 
 const Hero = () => {
@@ -52,7 +53,7 @@ const Hero = () => {
           backgroundImage: `url(${heroImgUrl.src})`,
           backgroundSize: "cover",
           backgroundPosition: "center",
-          backgroundRepeat: "no-repeat"
+          backgroundRepeat: "no-repeat",
         }}
       >
         <div className="flex flex-col absolute left-8 bottom-8">
@@ -69,7 +70,7 @@ const Hero = () => {
 const Item = ({
   data,
   className,
-  likeable
+  likeable,
 }: {
   data: Product;
   className: string;
