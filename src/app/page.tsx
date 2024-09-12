@@ -1,17 +1,44 @@
 "use client";
 
-import React, { ReactNode, useState } from "react";
+import React, { ReactNode, useEffect, useState } from "react";
 
 import heroImgUrl from "./assets/E-Commerce/image1174.png";
 import punchbag from "./assets/E-Commerce/image.png";
 
-import products from "./assets/Product-Dummy-Data/Product.json";
-import savedProducts from "./assets/Product-Dummy-Data/Saved.json";
-
 import Link from "next/link";
 import { Heart } from "lucide-react";
 
+import { addSavedProduct, getProductData } from "./services/Product";
+
+type Product = {
+  _id: string;
+  productName: string;
+  categoryId: string;
+  price: number;
+  qty: number;
+  thumbnails: string;
+  images: string[];
+  coupon: string;
+  salePercent: string;
+  description: string;
+  viewsCount: number;
+  createdAt: string;
+  updatedAt: string;
+};
+
 const Hero = () => {
+  const [products, setProducts] = useState<Product[]>([]);
+  const loadData = async () => {
+    setProducts(await getProductData());
+  };
+  useEffect(() => {
+    loadData();
+  }, []);
+  getProductData();
+  if (products.length == 0) {
+    return <div></div>;
+  }
+
   const fixedPrice: number =
     products[0].price *
     ((products[0].salePercent &&
@@ -39,28 +66,12 @@ const Hero = () => {
   );
 };
 
-interface Props {
-  _id: string;
-  productName: string;
-  categoryId: string;
-  price: number;
-  qty: number;
-  thumbnails: string;
-  images: string[];
-  coupon: string;
-  salePercent: string;
-  description: string;
-  viewsCount: number;
-  createdAt: string;
-  updatedAt: string;
-}
-
 const Item = ({
   data,
   className,
   likeable
 }: {
-  data: Props;
+  data: Product;
   className: string;
   likeable: boolean;
 }) => {
@@ -71,14 +82,14 @@ const Item = ({
       1);
 
   return (
-    <div className={`w-full flex flex-col gap-1 z-10 relative ${className}`}>
-      <img
-        onClick={() => {
-          console.log("wrsdfsa");
-        }}
-        src={punchbag.src}
-        className="mb-1 rounded-[16px]"
-      />
+    <div className={`w-full flex flex-col gap-1 z-10 relative ${className} `}>
+      <Link
+        className="mg-1 rounded-[16px] overflow-hidden w-full"
+        href={`product/${data._id}`}
+      >
+        <img className="w-full" src={punchbag.src} />
+      </Link>
+
       <span>{data.productName}</span>
       <div className="flex items-center gap-2">
         <span className="font-bold">{fixedPrice}₮</span>
@@ -95,10 +106,11 @@ const Item = ({
         <button
           onClick={() => {
             setSaved(!saved);
+            addSavedProduct(data._id, saved);
           }}
           className="z-50 right-2 top-2 absolute p-2"
         >
-          <Heart fill={saved ? 'black' : 'none'}/>
+          <Heart fill={saved ? "black" : "none"} />
         </button>
       )}
     </div>
@@ -106,10 +118,18 @@ const Item = ({
 };
 
 const ItemShowUp = () => {
+  const [products, setProducts] = useState<Product[]>([]);
+  const loadData = async () => {
+    setProducts(await getProductData());
+  };
+  useEffect(() => {
+    loadData();
+  }, []);
+  getProductData();
+
   return (
     <div className="grid grid-cols-4 gap-x-5 gap-y-12 mt-4 mb-25">
       {products.slice(1).map((product, index) => {
-        // Check if the index is 6 or 7
         const isSpecial = index === 6 || index === 7;
 
         return (
