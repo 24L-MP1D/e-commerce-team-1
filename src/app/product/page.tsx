@@ -54,7 +54,7 @@ export default function Home() {
             className="w-[422px] h-[521px] bg-gray-500 rounded-2xl"
             style={{
               backgroundImage: `url(${selectedProduct.thumbnails})`,
-              backgroundSize: "cover",
+              backgroundSize: "cover"
             }}
           ></div>
           <div className="flex flex-col gap-6 pt-[100px]">
@@ -130,7 +130,7 @@ export default function Home() {
               style={{
                 backgroundImage: `url(${product.thumbnails})`,
                 backgroundSize: "cover",
-                backgroundPosition: "center",
+                backgroundPosition: "center"
               }}
               onClick={() => handleProductChange(product._id)}
             ></div>
