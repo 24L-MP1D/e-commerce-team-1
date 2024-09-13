@@ -1,5 +1,6 @@
 [
   {
+    "size": "2XL",
     "_id": "1",
     "productName": "Red Hoodie",
     "categoryId": "Hoodie",
@@ -15,6 +16,7 @@
     "updatedAt": "2024-02-1"
   },
   {
+    "size": "S",
     "_id": "2",
     "productName": "Blue Jacket",
     "categoryId": "Jacket",
@@ -30,6 +32,7 @@
     "updatedAt": "2024-03-01"
   },
   {
+    "size": "L",
     "_id": "3",
     "productName": "Green T-Shirt",
     "categoryId": "T-Shirt",
@@ -45,6 +48,7 @@
     "updatedAt": "2024-04-01"
   },
   {
+    "size": "M",
     "_id": "4",
     "productName": "Black Sneakers",
     "categoryId": "Shoes",
@@ -60,6 +64,7 @@
     "updatedAt": "2024-05-10"
   },
   {
+    "size": "M",
     "_id": "5",
     "productName": "White Dress",
     "categoryId": "Dress",
@@ -75,6 +80,7 @@
     "updatedAt": "2024-06-15"
   },
   {
+    "size": "XL",
     "_id": "6",
     "productName": "Gray Sweatpants",
     "categoryId": "Pants",
@@ -90,6 +96,7 @@
     "updatedAt": "2024-07-20"
   },
   {
+    "size": "S",
     "_id": "7",
     "productName": "Yellow Scarf",
     "categoryId": "Accessories",
@@ -105,6 +112,7 @@
     "updatedAt": "2024-08-01"
   },
   {
+    "size": "M",
     "_id": "8",
     "productName": "Purple Hat",
     "categoryId": "Accessories",
@@ -120,6 +128,7 @@
     "updatedAt": "2024-09-10"
   },
   {
+    "size": "L",
     "_id": "9",
     "productName": "Brown Belt",
     "categoryId": "Accessories",
@@ -135,6 +144,7 @@
     "updatedAt": "2024-10-05"
   },
   {
+    "size": "L",
     "_id": "10",
     "productName": "Orange Gloves",
     "categoryId": "Accessories",
@@ -150,6 +160,7 @@
     "updatedAt": "2024-11-01"
   },
   {
+    "size": "2XL",
     "_id": "11",
     "productName": "Teal Hoodie",
     "categoryId": "Hoodie",
@@ -165,6 +176,7 @@
     "updatedAt": "2024-12-01"
   },
   {
+    "size": "XL",
     "_id": "12",
     "productName": "Pink Sweater",
     "categoryId": "Sweater",
@@ -180,6 +192,7 @@
     "updatedAt": "2025-01-01"
   },
   {
+    "size": "M",
     "_id": "13",
     "productName": "Navy Blue Suit",
     "categoryId": "Suit",
@@ -195,6 +208,7 @@
     "updatedAt": "2025-02-01"
   },
   {
+    "size": "M",
     "_id": "14",
     "productName": "Beige Shorts",
     "categoryId": "Shorts",
@@ -210,6 +224,7 @@
     "updatedAt": "2025-03-01"
   },
   {
+    "size": "2XL",
     "_id": "15",
     "productName": "Maroon Skirt",
     "categoryId": "Skirt",
@@ -225,6 +240,7 @@
     "updatedAt": "2025-04-01"
   },
   {
+    "size": "M",
     "_id": "16",
     "productName": "Cyan Tank Top",
     "categoryId": "Tank Top",
@@ -240,6 +256,7 @@
     "updatedAt": "2025-05-01"
   },
   {
+    "size": "L",
     "_id": "17",
     "productName": "Charcoal Blazer",
     "categoryId": "Blazer",
@@ -255,6 +272,7 @@
     "updatedAt": "2025-06-01"
   },
   {
+    "size": "XL",
     "_id": "18",
     "productName": "Lime Green Socks",
     "categoryId": "Socks",
@@ -270,6 +288,7 @@
     "updatedAt": "2025-07-01"
   },
   {
+    "size": "S",
     "_id": "19",
     "productName": "Copper Watch",
     "categoryId": "Watches",
@@ -285,6 +304,7 @@
     "updatedAt": "2025-08-10"
   },
   {
+    "size": "M",
     "_id": "20",
     "productName": "Silver Bracelet",
     "categoryId": "Jewelry",
