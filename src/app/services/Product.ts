@@ -37,6 +37,9 @@ export const getProductByCategory = async (
 ) => {
   try {
     console.log(category, size);
+    const res = await fetch(`/Product.json`);
+    const data = res.json();
+    return data;
   } catch (error) {
     console.error("FrontEnd error: ", error);
   }

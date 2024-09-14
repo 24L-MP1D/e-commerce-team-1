@@ -1,22 +1,43 @@
 "use client";
+"use client";
 import { useEffect, useState } from "react";
 import { getCategories } from "../services/category";
-
 import { Checkbox } from "@/components/ui/checkbox";
 import { getProductByCategory } from "../services/Product";
-
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { Item } from "../page";
+import path from "path";
 
 type Category = {
   name: string;
 };
 
 export default function Home() {
+  const [data, setData] = useState<any[]>([]);
+  const search = useSearchParams();
+
+  const categories = search.get("cats")?.split(",") || [];
+  const sizes = search.get("sizes")?.split(",") || [];
+
+  const loadData = async () => {
+    const data = await getProductByCategory(categories, sizes);
+    setData(data);
+  };
+
+  useEffect(() => {
+    loadData();
+  }, [search]);
+
   return (
-    <div className="w-full max-w-[1040px] flex gap-5 m-auto ">
+    <div className="w-full max-w-[1040px] flex gap-5 mx-auto mt-14 mb-28">
       <div className="flex-col gap-12 flex">
         <Categories />
-        <Size />
+        <Size sizes={["Free", "S", "M", "L", "XL", "2XL", "3XL"]} />
+      </div>
+      <div className="grid grid-cols-3 gap-[21px]">
+        {data.map((item) => (
+          <Item key={item.id} data={item} className="" likeable={true} /> // Ensure `item.id` is unique
+        ))}
       </div>
     </div>
   );
@@ -25,56 +46,102 @@ export default function Home() {
 const Categories = () => {
   const [categories, setCategories] = useState<Category[]>([]);
   const [activeCategories, setActiveCategories] = useState<string[]>([]);
+
+  const search = useSearchParams();
   const router = useRouter();
-  const getCategoryList = async () => {
-    setCategories(await getCategories());
-  };
+  const pathName = usePathname();
 
   useEffect(() => {
-    getCategoryList();
+    const fetchCategories = async () => {
+      const categoryList = await getCategories();
+      setCategories(categoryList);
+    };
+
+    fetchCategories();
   }, []);
 
+  const handleCheckboxChange = (categoryName: string, isChecked: boolean) => {
+    const updatedCategories = isChecked
+      ? [...activeCategories, categoryName]
+      : activeCategories.filter((name) => name !== categoryName);
+
+    setActiveCategories(updatedCategories);
+
+    let params = new URLSearchParams(search.toString());
+    params.set("cats", updatedCategories.join(","));
+    router.push(pathName + "?" + params);
+  };
+
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-4 min-w-[245px]">
       <span className="font-bold">Ангилал</span>
-      <div className="flex gap-2 font-medium items-center"></div>
-      {categories.map((Category) => (
-        <div
-          key={Category.name}
-          className="flex gap-2 font-medium items-center"
-        >
-          <Checkbox
-            onCheckedChange={async (e) => {
-              const updatedCategories = e
-                ? [Category.name, ...activeCategories]
-                : activeCategories.filter((name) => Category.name !== name);
-
-              setActiveCategories(updatedCategories);
-
-              router.push(`?tag=${updatedCategories.join(",")}`);
-
-              // Ensure that the products are fetched based on the latest activeCategories
-              await getProductByCategory(updatedCategories, ["x"]);
-            }}
-          />
-          <span>{Category.name}</span>
-        </div>
-      ))}
+      <div className="flex flex-col gap-2 font-medium">
+        {categories.map((category) => (
+          <div
+            key={category.name}
+            className="flex gap-2 items-center cursor-pointer"
+            onClick={() =>
+              handleCheckboxChange(
+                category.name,
+                !activeCategories.includes(category.name)
+              )
+            }
+          >
+            <Checkbox
+              checked={activeCategories.includes(category.name)}
+              onCheckedChange={(checked) =>
+                handleCheckboxChange(category.name, checked)
+              }
+            />
+            <span>{category.name}</span>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };
 
-const Size = () => {
+type SizeProps = {
+  sizes: string[];
+};
+
+const Size = ({ sizes }: SizeProps) => {
+  const search = useSearchParams();
+  const router = useRouter();
+  const pathName = usePathname();
+
+  const [activeSizes, setActiveSizes] = useState<string[]>([]);
+
+  const handleCheckboxChange = (size: string, isChecked: boolean) => {
+    const selectedSizes = isChecked
+      ? [...activeSizes, size]
+      : activeSizes.filter((aSize) => aSize !== size);
+    setActiveSizes(selectedSizes);
+    const params = new URLSearchParams(search.toString());
+    params.set("sizes", selectedSizes.join(","));
+    router.push(pathName + "?" + params);
+  };
+
   return (
     <div className="flex flex-col gap-4">
       <span className="font-bold">Хэмжээ</span>
       {sizes.map((size) => (
-        <div className="flex gap-2 items-center">
-          <Checkbox /> <span>{size}</span>
+        <div
+          key={size}
+          className="flex gap-2 items-center"
+          onClick={() => {
+            handleCheckboxChange(size, !activeSizes.includes(size));
+          }}
+        >
+          <Checkbox
+            onCheckedChange={(checked) => {
+              handleCheckboxChange(size, activeSizes.includes(checked));
+            }}
+            checked={activeSizes.includes(size)}
+          />
+          <span>{size}</span>
         </div>
       ))}
     </div>
   );
 };
-
-const sizes = ["Free", "S", "M", "L", "XL", "2XL", "3XL"];
