@@ -2,10 +2,6 @@ export const getProductData = async () => {
   try {
     const res = await fetch("/Product.json");
 
-    if (!res.ok) {
-      throw new Error(`meedq: ${res.status}`);
-    }
-
     const data = await res.json();
 
     return data;
@@ -32,5 +28,19 @@ export const addSavedProduct = async (id: string, saved: boolean) => {
   } catch (error) {
     console.error("meedq:", error);
     return [];
+  }
+};
+
+export const getProductByCategory = async (
+  category: string[],
+  size: string[]
+) => {
+  try {
+    console.log(category, size);
+    const res = await fetch(`/Product.json`);
+    const data = res.json();
+    return data;
+  } catch (error) {
+    console.error("FrontEnd error: ", error);
   }
 };
