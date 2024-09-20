@@ -5,7 +5,8 @@ export default function Header() {
             <div className="max-w-[1100px] m-auto flex p-4">
                 <div className="flex pl-2">
                     <img src="Logo.png" />
-                    <a href="/" className="text-white pl-4 mt-3">Ангилал</a>
+                    <h1 className="text-white mt-3 ml-2">ECOMMERCE</h1>
+                    <a href="/category" className="text-white pl-4 mt-3">Ангилал</a>
                 </div>
                 <div className="m-auto">
                     <div className="relative">
@@ -20,12 +21,8 @@ export default function Header() {
                 <div className="flex gap-3">
                     <FaRegHeart className="text-white size-6 mt-3" />
                     <FaShoppingCart className="text-white size-6 mt-3" />
-                    <button className="border-2 border-blue-600 border-solid  text-white font-bold py-2 px-4 rounded-full">
-                        Бүртгүүлэх
-                    </button>
-                    <button className="bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
-                        Нэвтрэх
-                    </button>
+                    <a href="/register"><button className="border-2 border-blue-600 border-solid  text-white font-bold py-2 px-4 rounded-full">Бүртгүүлэх</button></a>
+                    <a href="/login"><button className="bg-blue-700 text-white font-bold py-2 px-4 rounded-full mt-1">Нэвтрэх</button></a>
                 </div>
             </div>
         </main>
