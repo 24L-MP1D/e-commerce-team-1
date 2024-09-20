@@ -1,14 +1,28 @@
 "use client";
 
 import { Check, Trash } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import FirstStep from "./firstStep";
 import SecondStep from "./secondStep";
+import ThirdStep from "./thirdStep";
+
+import { useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 
 const Home = () => {
+  const search = useSearchParams();
+  const router = useRouter();
+  const pathName = usePathname();
+
   const [activeStep, setActiveStep] = useState(1);
   const [amountofItems, setAmount] = useState(0);
+
+  useEffect(() => {
+    router.push(pathName + "?" + `step=${activeStep}`);
+  }, [activeStep]);
+
   return (
     <div className="min-h-[70vh]">
       <div className=" flex flex-col gap-[58px] items-center m-auto mt-7 ">
@@ -31,6 +45,13 @@ const Home = () => {
               }}
               nextStep={() => {
                 setActiveStep(activeStep + 1);
+              }}
+            />
+          )) ||
+          (activeStep == 3 && (
+            <ThirdStep
+              preStep={() => {
+                setActiveStep(activeStep - 1);
               }}
             />
           ))}

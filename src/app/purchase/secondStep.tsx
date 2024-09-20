@@ -117,7 +117,9 @@ const OrderInfo = ({
         </button>
         <button
           className="py-2 px-9 rounded-[18px] bg-[#2563EB] text-white"
-          onClick={nextStep}
+          onClick={() => {
+            nextStep();
+          }}
         >
           Төлбөр төлөх
         </button>
