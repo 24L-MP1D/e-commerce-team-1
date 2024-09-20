@@ -10,18 +10,18 @@ const SecondStep = ({
   nextStep,
   previousStep
 }: {
-  amountOfItems: number,
-  amountPrice: number,
-  nextStep: any,
-  previousStep: any
+  amountOfItems: number;
+  amountPrice: number;
+  nextStep: any;
+  previousStep: any;
 }) => {
   return (
     <div className="flex gap-5 min-w-[1040px]">
       <Basket amountOfItems={amountOfItems} />
-      <OrderInfo  nextStep ={nextStep} previousStep = {previousStep}>
+      <OrderInfo nextStep={nextStep} previousStep={previousStep} />
     </div>
-  )
-}
+  );
+};
 
 const Basket = ({ amountOfItems }: { amountOfItems: number }) => {
   return (
@@ -58,7 +58,13 @@ const SecondStepItem = ({ name }: { name: string }) => {
   );
 };
 
-const OrderInfo = ({nextStep, previousStep} :{nextStep: any, previousStep: any}) => {
+const OrderInfo = ({
+  nextStep,
+  previousStep
+}: {
+  nextStep: any;
+  previousStep: any;
+}) => {
   const [lastName, setLastName] = useState("");
   const [firstName, setFirstName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState();
@@ -109,7 +115,10 @@ const OrderInfo = ({nextStep, previousStep} :{nextStep: any, previousStep: any})
         >
           Буцах
         </button>
-        <button className="py-2 px-9 rounded-[18px] bg-[#2563EB] text-white">
+        <button
+          className="py-2 px-9 rounded-[18px] bg-[#2563EB] text-white"
+          onClick={nextStep}
+        >
           Төлбөр төлөх
         </button>
       </div>
