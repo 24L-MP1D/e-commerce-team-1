@@ -1,11 +1,14 @@
 import { FaRegHeart, FaShoppingCart } from "react-icons/fa";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
 export default function Header() {
     return (
         <main className="bg-black">
             <div className="max-w-[1100px] m-auto flex p-4">
                 <div className="flex pl-2">
                     <img src="Logo.png" />
-                    <a href="/" className="text-white pl-4 mt-3">Ангилал</a>
+                    <h1 className="text-white mt-2 ml-2">ECOMMERCE</h1>
+                    <a href="/category" className="text-white pl-4 mt-2">Ангилал</a>
                 </div>
                 <div className="m-auto">
                     <div className="relative">
@@ -18,14 +21,12 @@ export default function Header() {
                     </div>
                 </div>
                 <div className="flex gap-3">
-                    <FaRegHeart className="text-white size-6 mt-3" />
-                    <FaShoppingCart className="text-white size-6 mt-3" />
-                    <button className="border-2 border-blue-600 border-solid  text-white font-bold py-2 px-4 rounded-full">
-                        Бүртгүүлэх
-                    </button>
-                    <button className="bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
-                        Нэвтрэх
-                    </button>
+                    <FaRegHeart className="text-white size-6 mt-2" />
+                    <a href="/purchase"><FaShoppingCart className="text-white size-6 mt-2" /></a>
+                    <Button className="border-2 border-blue-600 border-solid  text-white font-bold py-2 px-4 rounded-full" asChild><Link href="/register">Бүртгүүлэх</Link></Button>
+                    <Button className="bg-blue-700 text-white font-bold py-2 px-4 rounded-full" asChild><Link href="/login">Нэвтрэх</Link></Button>
+                    {/* <a href="/register"><button className="border-2 border-blue-600 border-solid  text-white font-bold py-2 px-4 rounded-full">Бүртгүүлэх</button></a>
+                    <a href="/login"><button className="bg-blue-700 text-white font-bold py-2 px-4 rounded-full">Нэвтрэх</button></a> */}
                 </div>
             </div>
         </main>
