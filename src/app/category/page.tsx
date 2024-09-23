@@ -13,7 +13,7 @@ type Category = {
 };
 
 export default function Home() {
-  const [data, setData] = useState<any[]>([]);
+  const [data, setData] = useState([]);
   const search = useSearchParams();
 
   const categories = search.get("cats")?.split(",") || [];
@@ -21,6 +21,7 @@ export default function Home() {
 
   const loadData = async () => {
     const data = await getProductByCategory(categories, sizes);
+    
     setData(data);
   };
 
