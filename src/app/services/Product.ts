@@ -11,20 +11,20 @@ export const getProductData = async () => {
   }
 };
 
-export const addSavedProduct = async (id: string, saved: boolean) => {
+export const changeSavedProduct = async (proId: string, saved: boolean) => {
+  const token = localStorage.getItem("Autorization") || "";
   try {
-    // const res = await fetch("/Saved.json", {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json"
-    //   },
-    //   body: JSON.stringify({ id: id })
-    // });
-
-    // if (!res.ok) {
-    //   throw new Error(`meedq: ${res.status}`);
-    // }
-    console.log(id, saved);
+    const res = await fetch(
+      `http://localhost:5000/product/${(!saved && `save`) || `unsave`}`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json", authToken: token },
+        body: JSON.stringify({
+          productId: proId
+        })
+      }
+    );
+    console.log(proId, saved);
   } catch (error) {
     console.error("meedq:", error);
     return [];
@@ -39,9 +39,9 @@ export const getProductByCategory = async (
     const res = await fetch(`http://localhost:5000/product/list`, {
       method: "POST",
       headers: {
-        "Content-Type": "application/json",
+        "Content-Type": "application/json"
       },
-      body: JSON.stringify({ categoryId: category, size: size }),
+      body: JSON.stringify({ categoryId: category, size: size })
     });
 
     if (!res.ok) {

@@ -8,7 +8,7 @@ import punchbag from "./assets/E-Commerce/image.png";
 import Link from "next/link";
 import { Heart } from "lucide-react";
 
-import { addSavedProduct, getProductData } from "./services/Product";
+import { changeSavedProduct, getProductData } from "./services/Product";
 
 type Product = {
   _id: string;
@@ -107,7 +107,7 @@ export const Item = ({
         <button
           onClick={() => {
             setSaved(!saved);
-            addSavedProduct(data._id, saved);
+            changeSavedProduct(data._id, saved);
           }}
           className="z-50 right-2 top-2 absolute p-2"
         >
