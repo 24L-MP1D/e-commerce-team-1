@@ -1,4 +1,4 @@
-const RegisterUser = async (
+export const RegisterUser = async (
     name: String,
     email: String,
     password: String,
