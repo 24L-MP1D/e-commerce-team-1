@@ -25,6 +25,7 @@ type Product = {
   createdAt: string;
   updatedAt: string;
   size: string;
+  isSelected: boolean;
 };
 
 const Hero = () => {
@@ -76,7 +77,7 @@ export const Item = ({
   className: string;
   likeable: boolean;
 }) => {
-  const [saved, setSaved] = useState(false);
+  const [saved, setSaved] = useState(data.isSelected);
   const fixedPrice: number =
     data.price *
     ((data.salePercent && 1 - Number(data.salePercent.slice(0, -1)) / 100) ||
