@@ -12,7 +12,7 @@ export const getProductData = async () => {
 };
 
 export const changeSavedProduct = async (proId: string, saved: boolean) => {
-  const token = localStorage.getItem("Autorization") || "";
+  const token = localStorage.getItem("Authorization") || "";
   try {
     const res = await fetch(
       `http://localhost:5000/product/${(!saved && `save`) || `unsave`}`,
@@ -35,12 +35,11 @@ export const getProductByCategory = async (
   category: string[],
   size: string[]
 ) => {
+  const token = localStorage.getItem("Authorization") || "";
   try {
     const res = await fetch(`http://localhost:5000/product/list`, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
+      headers: { "Content-Type": "application/json", authToken: token },
       body: JSON.stringify({ categoryId: category, size: size })
     });
 
