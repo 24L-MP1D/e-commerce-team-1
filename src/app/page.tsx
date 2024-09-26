@@ -80,8 +80,7 @@ export const Item = ({
   const [saved, setSaved] = useState(data.isSelected);
   const fixedPrice: number =
     data.price *
-    ((data.salePercent && 1 - Number(data.salePercent.slice(0, -1)) / 100) ||
-      1);
+    ((data.salePercent && 1 - Number(data.salePercent) / 100) || 1);
 
   return (
     <div className={`w-full flex flex-col gap-1 z-10 relative ${className} `}>
