@@ -47,7 +47,7 @@ const CommentSection: React.FC = () => {
   };
 
   return (
-    <div className="relative text-sm">
+    <div className="text-sm">
       <div className="flex gap-4 mt-5">
         <p className="text-gray-900">Үнэлгээ</p>
         <button onClick={toggleVisibility} className="text-blue-600 underline">
@@ -103,3 +103,20 @@ const CommentSection: React.FC = () => {
 };
 
 export default CommentSection;
+{/* <div className="flex flex-col gap-6 ">
+<p className="text-3xl font-bold">Холбоотой бараа</p>
+<div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-[21px]">
+  {products.map((product) => (
+    <div
+      key={product._id}
+      className="rounded-2xl w-[244px] h-[331px] bg-gray-500"
+      style={{
+        backgroundImage: `url(${product.thumbnails})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }}
+      onClick={() => handleProductChange(product._id)}
+    ></div>
+  ))}
+</div>
+</div> */}
