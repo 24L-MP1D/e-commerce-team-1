@@ -1,9 +1,14 @@
 export const getProductData = async () => {
+  const token = localStorage.getItem("Authorization") || "";
   try {
-    const res = await fetch("/Product.json");
+    const res = await fetch("http://localhost:5000/product/list", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", authToken: token },
+    });
 
     const data = await res.json();
 
+    console.log(data);
     return data;
   } catch (error) {
     console.error("meedq:", error);
@@ -20,8 +25,8 @@ export const changeSavedProduct = async (proId: string, saved: boolean) => {
         method: "POST",
         headers: { "Content-Type": "application/json", authToken: token },
         body: JSON.stringify({
-          productId: proId
-        })
+          productId: proId,
+        }),
       }
     );
     console.log(proId, saved);
@@ -40,7 +45,7 @@ export const getProductByCategory = async (
     const res = await fetch(`http://localhost:5000/product/list`, {
       method: "POST",
       headers: { "Content-Type": "application/json", authToken: token },
-      body: JSON.stringify({ categoryId: category, size: size })
+      body: JSON.stringify({ categoryId: category, size: size }),
     });
 
     if (!res.ok) {

@@ -7,6 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { AuthProvider } from "./AuthContext";
 import CommentSection from "./CommentSection";
+import { useRouter } from "next/navigation";
 
 interface Review {
   reviewer: string;
@@ -14,13 +15,16 @@ interface Review {
   rating: number;
 }
 
-interface Product {
+interface Size {
   size: string;
+  qty: number;
+}
+
+interface Product {
   _id: string;
   productName: string;
   categoryId: string;
   price: number;
-  qty: number;
   thumbnails: string;
   images: string[];
   coupon: string;
@@ -29,22 +33,17 @@ interface Product {
   viewsCount: number;
   createdAt: string;
   updatedAt: string;
-  reviews: Review[];
-}
-
-interface Size {
-  size: string;
+  sizes: Size[];
+  reviews?: Review[];
 }
 
 interface ProductQuantityProps {
-  product: Product;
   quantity: number;
   onDecrease: () => void;
   onIncrease: () => void;
 }
 
 const ProductQuantity: React.FC<ProductQuantityProps> = ({
-  product,
   quantity,
   onDecrease,
   onIncrease,
@@ -72,20 +71,24 @@ const ProductQuantity: React.FC<ProductQuantityProps> = ({
   );
 };
 
-export default function Home() {
+export default function Home({ params }: { params: { slug: string } }) {
   const [saved, setSaved] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [products, setProducts] = useState<Product[]>([]);
   const [chooseSize, setChooseSize] = useState<Size[]>([
-    { size: "S" },
-    { size: "M" },
-    { size: "L" },
-    { size: "XL" },
-    { size: "2XL" },
+    { size: "Free", qty: 10 },
+    { size: "S", qty: 5 },
+    { size: "M", qty: 7 },
+    { size: "L", qty: 3 },
+    { size: "XL", qty: 2 },
+    { size: "2XL", qty: 0 },
+    { size: "3XL", qty: 1 },
   ]);
   const [selectedSize, setSelectedSize] = useState<string | null>(null);
   const [showReviews, setShowReviews] = useState(false);
   const [quantity, setQuantity] = useState<number>(1);
+
+  const router = useRouter();
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -96,14 +99,16 @@ export default function Home() {
         }
         const data: Product[] = await response.json();
         setProducts(data);
-        setSelectedProduct(data[0]);
+        setSelectedProduct(
+          data.find((item) => item._id === params.slug) || data[0]
+        );
       } catch (error) {
         console.error(error);
       }
     };
 
     fetchProducts();
-  }, []);
+  }, [params.slug]);
 
   const handleClick = () => {
     setSaved(!saved);
@@ -112,13 +117,18 @@ export default function Home() {
   const handleProductChange = (productId: string) => {
     const product = products.find((p) => p._id === productId);
     if (product) {
-      setSelectedProduct(product);
+      router.push(`${product._id}`);
       setQuantity(1);
+      setSelectedSize(null);
     }
   };
 
   const handleSizeClick = (size: string) => {
     setSelectedSize(size);
+    const selectedSizeObj = chooseSize.find((s) => s.size === size);
+    if (selectedSizeObj) {
+      setQuantity(selectedSizeObj.qty);
+    }
   };
 
   const handleDecrease = () => {
@@ -128,7 +138,8 @@ export default function Home() {
   };
 
   const handleIncrease = () => {
-    if (selectedProduct && quantity < selectedProduct.qty) {
+    const selectedSizeObj = chooseSize.find((s) => s.size === selectedSize);
+    if (selectedSizeObj && quantity < selectedSizeObj.qty) {
       setQuantity(quantity + 1);
     }
   };
@@ -138,34 +149,34 @@ export default function Home() {
   return (
     <div className="mx-auto items-center flex flex-col h-screen mt-[68px]">
       <div className="flex gap-5">
-        {/*part-1 starts*/}
-        <div className="flex gap-5 sticky top-[100px]">
-          <div className="flex-col flex gap-y-2 pt-[100px]">
-            <div className="w-[67px] h-[67px] bg-gray-500 rounded"></div>
-            <div className="w-[67px] h-[67px] bg-gray-500 rounded"></div>
-            <div className="w-[67px] h-[67px] bg-gray-500 rounded"></div>
-            <div className="w-[67px] h-[67px] bg-gray-500 rounded"></div>
+        {/* Part 1 */}
+        <div className="flex gap-5 top-[100px]">
+          <div className="flex-col flex gap-y-2 pt-[100px] sticky top-[100px]">
+            {/* Thumbnail previews */}
+            {selectedProduct.images.map((img, index) => (
+              <div
+                key={index}
+                className="w-[67px] h-[67px] bg-gray-500 rounded"
+              ></div>
+            ))}
           </div>
           <div
             className="w-[422px] h-[521px] bg-gray-500 rounded-2xl"
             style={{
               backgroundImage: `url(${selectedProduct.thumbnails})`,
-              backgroundSize: "cover"
+              backgroundSize: "cover",
             }}
           ></div>
         </div>
-        {/*part-1 ends*/}
-        {/*part-2 starts*/}
+        {/* Part 2 */}
         <div className="flex-1">
           <div className="flex flex-col gap-6 pt-[100px]">
-            <div>
-              <Badge
-                variant="outline"
-                className="rounded-full border border-[#2563EB]"
-              >
-                Шинэ
-              </Badge>
-            </div>
+            <Badge
+              variant="outline"
+              className="rounded-full border border-[#2563EB]"
+            >
+              Шинэ
+            </Badge>
             <div className="flex gap-2 items-center">
               <p className="text-2xl font-bold">
                 {selectedProduct.productName}
@@ -182,20 +193,19 @@ export default function Home() {
             <p className="text-sm underline">Хэмжээний заавар</p>
             <div className="flex flex-col">
               <div className="flex flex-row gap-2 mb-4">
-                {chooseSize.map((size, index) => (
+                {chooseSize.map((sizeObj, index) => (
                   <div
                     key={index}
                     className={`w-8 h-8 rounded-full border flex items-center text-xs justify-center cursor-pointer ${
-                      selectedSize === size.size ? "bg-black text-white" : ""
+                      selectedSize === sizeObj.size ? "bg-black text-white" : ""
                     }`}
-                    onClick={() => handleSizeClick(size.size)}
+                    onClick={() => handleSizeClick(sizeObj.size)}
                   >
-                    {size.size}
+                    {sizeObj.size}
                   </div>
                 ))}
               </div>
               <ProductQuantity
-                product={selectedProduct}
                 quantity={quantity}
                 onDecrease={handleDecrease}
                 onIncrease={handleIncrease}
@@ -212,7 +222,7 @@ export default function Home() {
             </div>
             <div className="flex gap-4 text-sm">
               <AuthProvider>
-                <CommentSection></CommentSection>
+                <CommentSection />
               </AuthProvider>
               {showReviews && selectedProduct.reviews && (
                 <div className="mt-4">
@@ -230,7 +240,6 @@ export default function Home() {
               )}
             </div>
           </div>
-          {/*part-2 ends*/}
         </div>
       </div>
       <div className="flex flex-col gap-6">
@@ -243,7 +252,7 @@ export default function Home() {
               style={{
                 backgroundImage: `url(${product.thumbnails})`,
                 backgroundSize: "cover",
-                backgroundPosition: "center"
+                backgroundPosition: "center",
               }}
               onClick={() => handleProductChange(product._id)}
             ></div>
