@@ -5,7 +5,7 @@ import { MdEmail } from "react-icons/md";
 export default function Footer() {
   return (
     <main className="bg-black">
-      <div className="max-w-[1100px] m-auto p-4">
+      <div className=" max-w-[1100px] m-auto p-4">
         <div className="flex pl-2 pt-10 space-x-[500px]">
           <div>
             <img src="Logo.png" />

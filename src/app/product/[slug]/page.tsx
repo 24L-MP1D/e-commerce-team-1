@@ -9,6 +9,7 @@ import { AuthProvider } from "./AuthContext";
 import CommentSection from "./CommentSection";
 import { useRouter } from "next/navigation";
 import { Item } from "@/app/page";
+import { getProductData } from "@/app/services/Product";
 
 interface Review {
   reviewer: string;
@@ -75,6 +76,7 @@ const ProductQuantity: React.FC<ProductQuantityProps> = ({
 export default function Home({ params }: { params: { slug: string } }) {
   const [saved, setSaved] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+  const [selectedImage, setSelectedImage] = useState(null);
   const [products, setProducts] = useState<Product[]>([]);
   const [chooseSize, setChooseSize] = useState<Size[]>([
     { size: "Free", qty: 10 },
@@ -94,15 +96,11 @@ export default function Home({ params }: { params: { slug: string } }) {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await fetch("/Product.json");
-        if (!response.ok) {
-          throw new Error("Failed to fetch products");
-        }
-        const data: Product[] = await response.json();
-        setProducts(data);
-        setSelectedProduct(
-          data.find((item) => item._id === params.slug) || data[0]
-        );
+        const data = await getProductData([], [], "66fbcd7206efd3e91169ee50");
+        const productList = await getProductData([], [], "");
+        setProducts(productList);
+        setSelectedProduct(data);
+        setSelectedImage(data.images[0]);
       } catch (error) {
         console.error(error);
       }
@@ -148,7 +146,7 @@ export default function Home({ params }: { params: { slug: string } }) {
   if (!selectedProduct) return <p>Loading...</p>;
 
   return (
-    <div className="mx-auto items-center flex flex-col h-screen mt-[68px]">
+    <div className="mx-auto items-center flex flex-col my-[68px]">
       <div className="flex gap-5">
         {/* Part 1 */}
         <div className="flex gap-5 top-[100px]">
@@ -157,14 +155,23 @@ export default function Home({ params }: { params: { slug: string } }) {
             {selectedProduct.images.map((img, index) => (
               <div
                 key={index}
-                className="w-[67px] h-[67px] bg-gray-500 rounded"
-              ></div>
+                onClick={() => {
+                  setSelectedImage(img);
+                }}
+              >
+                <img
+                  src={img}
+                  className={`object-cover w-[67px] h-[67px] rounded-[4px] ${
+                    img == selectedImage && "border-[1px] border-black"
+                  }`}
+                />
+              </div>
             ))}
           </div>
           <div
             className="w-[422px] h-[521px] bg-gray-500 rounded-2xl"
             style={{
-              backgroundImage: `url(${selectedProduct.thumbnails})`,
+              backgroundImage: `url(${selectedImage})`,
               backgroundSize: "cover",
             }}
           ></div>

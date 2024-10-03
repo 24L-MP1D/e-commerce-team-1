@@ -31,7 +31,7 @@ type Product = {
 const Hero = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const loadData = async () => {
-    setProducts(await getProductData([], []));
+    setProducts(await getProductData([], [], ""));
   };
   useEffect(() => {
     loadData();
@@ -85,7 +85,7 @@ export const Item = ({
     <div className={`w-full flex flex-col gap-1 z-10 relative ${className} `}>
       <Link
         className="mg-1 rounded-[16px] overflow-hidden w-full"
-        href={`product/${data._id}`}
+        href={`/product/${data._id}`}
       >
         <img className="w-full" src={data.images[0] || punchbag.src} />
       </Link>
@@ -120,7 +120,7 @@ export const Item = ({
 const ItemShowUp = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const loadData = async () => {
-    setProducts(await getProductData([], []));
+    setProducts(await getProductData([], [], ""));
   };
   useEffect(() => {
     loadData();

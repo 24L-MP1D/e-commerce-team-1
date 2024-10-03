@@ -18,13 +18,17 @@ export const changeSavedProduct = async (proId: string, saved: boolean) => {
   }
 };
 
-export const getProductData = async (category: string[], size: string[]) => {
+export const getProductData = async (
+  category: string[],
+  size: string[],
+  id: string
+) => {
   const token = localStorage.getItem("Authorization") || "";
   try {
     const res = await fetch(`http://localhost:5000/product/list`, {
       method: "POST",
       headers: { "Content-Type": "application/json", authToken: token },
-      body: JSON.stringify({ categoryId: category, size: size }),
+      body: JSON.stringify({ categoryId: category, size: size, id: id }),
     });
 
     if (!res.ok) {
