@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { AuthProvider } from "./AuthContext";
 import CommentSection from "./CommentSection";
 import { useRouter } from "next/navigation";
+import { Item } from "@/app/page";
 
 interface Review {
   reviewer: string;
@@ -244,18 +245,14 @@ export default function Home({ params }: { params: { slug: string } }) {
       </div>
       <div className="flex flex-col gap-6">
         <p className="text-3xl font-bold">Холбоотой бараа</p>
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-[21px]">
-          {products.map((product) => (
-            <div
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-[21px] max-w-[1039px]">
+          {products.map((product: Product) => (
+            <Item
               key={product._id}
-              className="rounded-2xl w-[244px] h-[331px] bg-gray-500"
-              style={{
-                backgroundImage: `url(${product.thumbnails})`,
-                backgroundSize: "cover",
-                backgroundPosition: "center",
-              }}
+              data={product}
+              likeable={true}
               onClick={() => handleProductChange(product._id)}
-            ></div>
+            />
           ))}
         </div>
       </div>

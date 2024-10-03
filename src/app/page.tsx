@@ -31,12 +31,11 @@ type Product = {
 const Hero = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const loadData = async () => {
-    setProducts(await getProductData());
+    setProducts(await getProductData([], []));
   };
   useEffect(() => {
     loadData();
   }, []);
-  getProductData();
   if (products.length == 0) {
     return <div></div>;
   }
@@ -74,7 +73,7 @@ export const Item = ({
   likeable,
 }: {
   data: Product;
-  className: string;
+  className: string | "";
   likeable: boolean;
 }) => {
   const [saved, setSaved] = useState(data.isSelected);
@@ -121,12 +120,11 @@ export const Item = ({
 const ItemShowUp = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const loadData = async () => {
-    setProducts(await getProductData());
+    setProducts(await getProductData([], []));
   };
   useEffect(() => {
     loadData();
   }, []);
-  getProductData();
 
   return (
     <div className="grid grid-cols-4 gap-x-5 gap-y-12 mt-4 mb-25">

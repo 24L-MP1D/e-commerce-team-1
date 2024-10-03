@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { getCategories } from "../services/category";
 import { Checkbox } from "@/components/ui/checkbox";
-import { getProductByCategory } from "../services/Product";
+import { getProductData } from "../services/Product";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Item } from "../page";
 import path from "path";
@@ -20,8 +20,8 @@ export default function Home() {
   const sizes = search.get("sizes")?.split(",") || [];
 
   const loadData = async () => {
-    const data = await getProductByCategory(categories, sizes);
-    
+    const data = await getProductData(categories, sizes);
+
     setData(data);
   };
 
@@ -37,7 +37,7 @@ export default function Home() {
       </div>
       <div className="grid grid-cols-3 gap-[21px]">
         {data.map((item) => (
-          <Item key={item.id} data={item} className="" likeable={true} /> // Ensure `item.id` is unique
+          <Item key={item._id} data={item} className="" likeable={true} />
         ))}
       </div>
     </div>
