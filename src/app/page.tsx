@@ -31,12 +31,11 @@ type Product = {
 const Hero = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const loadData = async () => {
-    setProducts(await getProductData());
+    setProducts(await getProductData([], [], ""));
   };
   useEffect(() => {
     loadData();
   }, []);
-  getProductData();
   if (products.length == 0) {
     return <div></div>;
   }
@@ -51,10 +50,10 @@ const Hero = () => {
       <div
         className="w-full h-[500px] relative rounded-[16px]"
         style={{
-          backgroundImage: `url(${heroImgUrl.src})`,
+          backgroundImage: `url(${products[0].images[0] || heroImgUrl.src})`,
           backgroundSize: "cover",
           backgroundPosition: "center",
-          backgroundRepeat: "no-repeat"
+          backgroundRepeat: "no-repeat",
         }}
       >
         <div className="flex flex-col absolute left-8 bottom-8">
@@ -71,10 +70,10 @@ const Hero = () => {
 export const Item = ({
   data,
   className,
-  likeable
+  likeable,
 }: {
   data: Product;
-  className: string;
+  className: string | "";
   likeable: boolean;
 }) => {
   const [saved, setSaved] = useState(data.isSelected);
@@ -86,9 +85,9 @@ export const Item = ({
     <div className={`w-full flex flex-col gap-1 z-10 relative ${className} `}>
       <Link
         className="mg-1 rounded-[16px] overflow-hidden w-full"
-        href={`product/${data._id}`}
+        href={`/product/${data._id}`}
       >
-        <img className="w-full" src={punchbag.src} />
+        <img className="w-full" src={data.images[0] || punchbag.src} />
       </Link>
 
       <span>{data.productName}</span>
@@ -121,12 +120,11 @@ export const Item = ({
 const ItemShowUp = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const loadData = async () => {
-    setProducts(await getProductData());
+    setProducts(await getProductData([], [], ""));
   };
   useEffect(() => {
     loadData();
   }, []);
-  getProductData();
 
   return (
     <div className="grid grid-cols-4 gap-x-5 gap-y-12 mt-4 mb-25">

@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { getCategories } from "../services/category";
 import { Checkbox } from "@/components/ui/checkbox";
-import { getProductByCategory } from "../services/Product";
+import { getProductData } from "../services/Product";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Item } from "../page";
 import path from "path";
@@ -16,12 +16,20 @@ export default function Home() {
   const [data, setData] = useState([]);
   const search = useSearchParams();
 
-  const categories = search.get("cats")?.split(",") || [];
-  const sizes = search.get("sizes")?.split(",") || [];
+  const categories =
+    search
+      .get("cats")
+      ?.split(",")
+      .filter((item) => item != "") || [];
+  const sizes =
+    search
+      .get("sizes")
+      ?.split(",")
+      .filter((item) => item != "") || [];
 
   const loadData = async () => {
-    const data = await getProductByCategory(categories, sizes);
-    
+    const data = await getProductData(categories, sizes);
+
     setData(data);
   };
 
@@ -37,7 +45,7 @@ export default function Home() {
       </div>
       <div className="grid grid-cols-3 gap-[21px]">
         {data.map((item) => (
-          <Item key={item.id} data={item} className="" likeable={true} /> // Ensure `item.id` is unique
+          <Item key={item._id} data={item} className="" likeable={true} />
         ))}
       </div>
     </div>
@@ -79,22 +87,22 @@ const Categories = () => {
       <div className="flex flex-col gap-2 font-medium">
         {categories.map((category) => (
           <div
-            key={category.name}
+            key={category}
             className="flex gap-2 items-center cursor-pointer"
             onClick={() =>
               handleCheckboxChange(
-                category.name,
-                !activeCategories.includes(category.name)
+                category,
+                !activeCategories.includes(category)
               )
             }
           >
             <Checkbox
-              checked={activeCategories.includes(category.name)}
+              checked={activeCategories.includes(category)}
               onCheckedChange={(checked) =>
                 handleCheckboxChange(category.name, checked)
               }
             />
-            <span>{category.name}</span>
+            <span>{category}</span>
           </div>
         ))}
       </div>
