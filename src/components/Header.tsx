@@ -6,13 +6,19 @@ import { FaRegHeart, FaShoppingCart } from "react-icons/fa";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { User } from "lucide-react";
-import { useLoginContext } from "@/app/context/LoginWrapper";
+import {
+  checkTokenValidation,
+  useLoginContext
+} from "@/app/context/LoginWrapper";
 
 export default function Header() {
-  const loginContext = useLoginContext();
-  const isLoggedIn = loginContext.value;
-  console.log(isLoggedIn);
+  const token = localStorage.getItem("Authorization");
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  useEffect(() => {
+    setIsLoggedIn(checkTokenValidation(token || ""));
+  }, []);
 
+  console.log(isLoggedIn);
   return (
     <main className="bg-black">
       <div className="max-w-[1100px] m-auto flex p-4">

@@ -16,8 +16,16 @@ export default function Home() {
   const [data, setData] = useState([]);
   const search = useSearchParams();
 
-  const categories = search.get("cats")?.split(",") || [];
-  const sizes = search.get("sizes")?.split(",") || [];
+  const categories =
+    search
+      .get("cats")
+      ?.split(",")
+      .filter((item) => item != "") || [];
+  const sizes =
+    search
+      .get("sizes")
+      ?.split(",")
+      .filter((item) => item != "") || [];
 
   const loadData = async () => {
     const data = await getProductData(categories, sizes);
@@ -79,22 +87,22 @@ const Categories = () => {
       <div className="flex flex-col gap-2 font-medium">
         {categories.map((category) => (
           <div
-            key={category.name}
+            key={category}
             className="flex gap-2 items-center cursor-pointer"
             onClick={() =>
               handleCheckboxChange(
-                category.name,
-                !activeCategories.includes(category.name)
+                category,
+                !activeCategories.includes(category)
               )
             }
           >
             <Checkbox
-              checked={activeCategories.includes(category.name)}
+              checked={activeCategories.includes(category)}
               onCheckedChange={(checked) =>
                 handleCheckboxChange(category.name, checked)
               }
             />
-            <span>{category.name}</span>
+            <span>{category}</span>
           </div>
         ))}
       </div>

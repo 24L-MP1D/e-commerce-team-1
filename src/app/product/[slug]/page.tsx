@@ -48,7 +48,7 @@ interface ProductQuantityProps {
 const ProductQuantity: React.FC<ProductQuantityProps> = ({
   quantity,
   onDecrease,
-  onIncrease,
+  onIncrease
 }) => {
   return (
     <div className="flex flex-col">
@@ -85,7 +85,7 @@ export default function Home({ params }: { params: { slug: string } }) {
     { size: "L", qty: 3 },
     { size: "XL", qty: 2 },
     { size: "2XL", qty: 0 },
-    { size: "3XL", qty: 1 },
+    { size: "3XL", qty: 1 }
   ]);
   const [selectedSize, setSelectedSize] = useState<string | null>(null);
   const [showReviews, setShowReviews] = useState(false);
@@ -96,7 +96,7 @@ export default function Home({ params }: { params: { slug: string } }) {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const data = await getProductData([], [], "66fbcd7206efd3e91169ee50");
+        const data = await getProductData([], [], params.slug);
         const productList = await getProductData([], [], "");
         setProducts(productList);
         setSelectedProduct(data);
@@ -172,7 +172,7 @@ export default function Home({ params }: { params: { slug: string } }) {
             className="w-[422px] h-[521px] bg-gray-500 rounded-2xl"
             style={{
               backgroundImage: `url(${selectedImage})`,
-              backgroundSize: "cover",
+              backgroundSize: "cover"
             }}
           ></div>
         </div>
