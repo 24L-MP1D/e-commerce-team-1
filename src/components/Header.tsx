@@ -12,10 +12,9 @@ import {
 } from "@/app/context/LoginWrapper";
 
 export default function Header() {
-  const token = localStorage.getItem("Authorization");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   useEffect(() => {
-    setIsLoggedIn(checkTokenValidation(token || ""));
+    setIsLoggedIn(checkTokenValidation());
   }, []);
 
   console.log(isLoggedIn);

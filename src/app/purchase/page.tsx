@@ -10,6 +10,7 @@ import ThirdStep from "./thirdStep";
 import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 import { usePathname } from "next/navigation";
+import OrderDetailsWrapper from "../context/OrderDetails";
 
 const Home = () => {
   const search = useSearchParams();
@@ -26,35 +27,37 @@ const Home = () => {
   return (
     <div className="min-h-[70vh]">
       <div className=" flex flex-col gap-[58px] items-center m-auto mt-7 ">
-        <Step activeStep={activeStep} />
-        {(activeStep == 1 && (
-          <FirstStep
-            amountOfItems={amountofItems}
-            amountPrice={360000}
-            nextStep={() => {
-              setActiveStep(activeStep + 1);
-            }}
-          />
-        )) ||
-          (activeStep == 2 && (
-            <SecondStep
+        <OrderDetailsWrapper>
+          <Step activeStep={activeStep} />
+          {(activeStep == 1 && (
+            <FirstStep
               amountOfItems={amountofItems}
               amountPrice={360000}
-              previousStep={() => {
-                setActiveStep(activeStep - 1);
-              }}
               nextStep={() => {
                 setActiveStep(activeStep + 1);
               }}
             />
           )) ||
-          (activeStep == 3 && (
-            <ThirdStep
-              preStep={() => {
-                setActiveStep(activeStep - 1);
-              }}
-            />
-          ))}
+            (activeStep == 2 && (
+              <SecondStep
+                amountOfItems={amountofItems}
+                amountPrice={360000}
+                previousStep={() => {
+                  setActiveStep(activeStep - 1);
+                }}
+                nextStep={() => {
+                  setActiveStep(activeStep + 1);
+                }}
+              />
+            )) ||
+            (activeStep == 3 && (
+              <ThirdStep
+                preStep={() => {
+                  setActiveStep(activeStep - 1);
+                }}
+              />
+            ))}
+        </OrderDetailsWrapper>
       </div>
     </div>
   );

@@ -10,6 +10,7 @@ import CommentSection from "./CommentSection";
 import { useRouter } from "next/navigation";
 import { Item } from "@/app/page";
 import { getProductData } from "@/app/services/Product";
+import { addToCart } from "@/app/services/cart";
 
 interface Review {
   reviewer: string;
@@ -87,7 +88,7 @@ export default function Home({ params }: { params: { slug: string } }) {
     { size: "2XL", qty: 0 },
     { size: "3XL", qty: 1 }
   ]);
-  const [selectedSize, setSelectedSize] = useState<string | null>(null);
+  const [selectedSize, setSelectedSize] = useState<string | "">("");
   const [showReviews, setShowReviews] = useState(false);
   const [quantity, setQuantity] = useState<number>(1);
 
@@ -118,7 +119,7 @@ export default function Home({ params }: { params: { slug: string } }) {
     if (product) {
       router.push(`${product._id}`);
       setQuantity(1);
-      setSelectedSize(null);
+      setSelectedSize("");
     }
   };
 
@@ -224,6 +225,10 @@ export default function Home({ params }: { params: { slug: string } }) {
               <Button
                 variant="outline"
                 className="rounded-full px-9 py-2 text-white bg-[#2563EB] text-sm"
+                onClick={() => {
+                  addToCart(params.slug, selectedSize, quantity);
+                }}
+                disabled={!selectedSize}
               >
                 Сагсанд нэмэх
               </Button>
