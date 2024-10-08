@@ -1,7 +1,36 @@
 import { QrCode } from "lucide-react";
 import QRCode from "react-qr-code";
+import { addOrder } from "../services/order";
+import { useOrderDeatilsContext } from "../context/OrderDetails";
+import { useEffect, useState } from "react";
+import { getCartItems } from "../services/cart";
 
 const ThirdStep = ({ preStep }: { preStep: any }) => {
+  const [data, setData] = useState([
+    { productId: { images: [], id: "", price: 0 }, size: "", qty: 0 },
+  ]);
+  const getTotalAmount = (lis: []) => {
+    let total = 0;
+    for (let i in lis) {
+      total += lis[i].qty * lis[i].productId.price;
+    }
+    return total;
+  };
+  const total = getTotalAmount(data);
+  const getCart = async () => {
+    setData(await getCartItems());
+  };
+  useEffect(() => {
+    getCart();
+  }, []);
+  const updatedData = data.map((item) => ({
+    qty: item.qty,
+    size: item.size,
+    id: item.productId._id,
+  }));
+  console.log(updatedData);
+  const orderDetails = useOrderDeatilsContext();
+  const { phoneNumber, address, info } = orderDetails.data;
   return (
     <div className="p-8 rounded-[16px]">
       <span className="font-semibold text-lg">3. Төлбөр төлөлт</span>
@@ -21,6 +50,16 @@ const ThirdStep = ({ preStep }: { preStep: any }) => {
               <button
                 className="size-[46.88px] border-[1px] rounded-[4px]"
                 key={j}
+                onClick={() => {
+                  addOrder(
+                    phoneNumber,
+                    address,
+                    info,
+                    total,
+                    "Delivery",
+                    updatedData
+                  );
+                }}
               >
                 i
               </button>

@@ -5,14 +5,14 @@ import imagesh from "../assets/E-Commerce/image.png";
 import { useEffect, useState } from "react";
 import { getCartItems } from "../services/cart";
 import OrderDetailsWrapper, {
-  useOrderDeatilsContext
+  useOrderDeatilsContext,
 } from "../context/OrderDetails";
 
 const SecondStep = ({
   amountOfItems,
   amountPrice,
   nextStep,
-  previousStep
+  previousStep,
 }: {
   amountOfItems: number;
   amountPrice: number;
@@ -29,7 +29,7 @@ const SecondStep = ({
 
 const Basket = ({ amountOfItems }: { amountOfItems: number }) => {
   const [data, setData] = useState([
-    { productId: { images: [], id: "", price: 0 }, size: "", qty: 0 }
+    { productId: { images: [], id: "", price: 0 }, size: "", qty: 0 },
   ]);
   const getTotalAmount = (lis: []) => {
     let total = 0;
@@ -73,7 +73,7 @@ const SecondStepItem = ({
   name,
   qty,
   price,
-  image
+  image,
 }: {
   name: string;
   qty: number;
@@ -98,18 +98,13 @@ const SecondStepItem = ({
 
 const OrderInfo = ({
   nextStep,
-  previousStep
+  previousStep,
 }: {
   nextStep: any;
   previousStep: any;
 }) => {
   const orderDetails = useOrderDeatilsContext();
   console.log(orderDetails.data);
-  const [lastName, setLastName] = useState("");
-  const [firstName, setFirstName] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState();
-  const [address, setAddress] = useState("");
-  const [additional, setAdditional] = useState("");
   return (
     <div className="p-8 flex flex-col gap-6 flex-1">
       <span className="font-semibold text-lg">
@@ -123,7 +118,7 @@ const OrderInfo = ({
           onChange={(e) => {
             orderDetails.setData({
               ...orderDetails.data,
-              lastName: e.target.value
+              lastName: e.target.value,
             });
           }}
         />
@@ -136,7 +131,7 @@ const OrderInfo = ({
           onChange={(e) => {
             orderDetails.setData({
               ...orderDetails.data,
-              name: e.target.value
+              name: e.target.value,
             });
           }}
         />
@@ -150,7 +145,7 @@ const OrderInfo = ({
           onChange={(e) => {
             orderDetails.setData({
               ...orderDetails.data,
-              phoneNumber: e.target.value
+              phoneNumber: e.target.value,
             });
           }}
         />
@@ -162,7 +157,7 @@ const OrderInfo = ({
           onChange={(e) => {
             orderDetails.setData({
               ...orderDetails.data,
-              address: e.target.value
+              address: e.target.value,
             });
           }}
         />
@@ -174,7 +169,7 @@ const OrderInfo = ({
           onChange={(e) => {
             orderDetails.setData({
               ...orderDetails.data,
-              info: e.target.value
+              info: e.target.value,
             });
           }}
         />
