@@ -1,6 +1,8 @@
+import { backCode } from "./cart";
+
 export const getCategories = async () => {
   try {
-    const res = await fetch(`http://localhost:5000/product/category/list`, {
+    const res = await fetch(`${backCode}/product/category/list`, {
       method: "GET",
       headers: { "Content-Type": "application/json" }
     });
