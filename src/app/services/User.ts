@@ -1,6 +1,6 @@
 import { backCode } from "./cart";
 
-export const FindUser = async () => {
+export const  FindUser = async () => {
   const token = localStorage.getItem("Authorization") || "";
   const res = await fetch(`${backCode}/user/get`, {
     method: "GET",

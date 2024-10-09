@@ -235,7 +235,7 @@ export default function Home({ params }: { params: { slug: string } }) {
             </div>
             <div className="flex gap-4 text-sm">
               <AuthProvider>
-                <CommentSection />
+                <CommentSection slug={params.slug} />
               </AuthProvider>
               {showReviews && selectedProduct.reviews && (
                 <div className="mt-4">
