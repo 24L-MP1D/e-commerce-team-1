@@ -19,9 +19,10 @@ export const changeSavedProduct = async (proId: string, saved: boolean) => {
 };
 
 export const getProductData = async (
-  category: string[] | [],
-  size: string[] | [],
-  id: string | ""
+  category: string[] | undefined,
+  size: string[] | undefined,
+  id: string | undefined,
+  name: string | undefined
 ) => {
   const token = localStorage.getItem("Authorization") || "";
   try {
@@ -34,6 +35,9 @@ export const getProductData = async (
     }
     if (id) {
       filter = { ...filter, id: id };
+    }
+    if (name) {
+      filter = { ...filter, name: name };
     }
     console.log(filter);
     const res = await fetch(`http://localhost:5000/product/list`, {
