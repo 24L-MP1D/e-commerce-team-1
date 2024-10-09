@@ -1,8 +1,10 @@
+import { backCode } from "./cart";
+
 export const changeSavedProduct = async (proId: string, saved: boolean) => {
   const token = localStorage.getItem("Authorization") || "";
   try {
     const res = await fetch(
-      `http://localhost:5000/product/${(!saved && `save`) || `unsave`}`,
+      `${backCode}/product/${(!saved && `save`) || `unsave`}`,
       {
         method: "POST",
         headers: { "Content-Type": "application/json", authToken: token },
@@ -36,7 +38,7 @@ export const getProductData = async (
       filter = { ...filter, id: id };
     }
     console.log(filter);
-    const res = await fetch(`http://localhost:5000/product/list`, {
+    const res = await fetch(`${backCode}/product/list`, {
       method: "POST",
       headers: { "Content-Type": "application/json", authToken: token },
       body: JSON.stringify(filter)
@@ -58,7 +60,7 @@ export const getProductData = async (
 export const getSavedProducts = async () => {
   const token = localStorage.getItem("Authorization") || "";
   try {
-    const res = await fetch(`http://localhost:5000/product/getSaved`, {
+    const res = await fetch(`${backCode}/product/getSaved`, {
       method: "GET",
       headers: { "Content-Type": "application/json", authToken: token }
     });

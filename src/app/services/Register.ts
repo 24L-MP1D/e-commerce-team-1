@@ -1,10 +1,12 @@
+import { backCode } from "./cart";
+
 export const RegisterUser = async (
     name: String,
     email: String,
     password: String,
 ) => {
     try {
-        const res = await fetch(`http://localhost:5000/user/create`, {
+        const res = await fetch(`${backCode}/user/create`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
