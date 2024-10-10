@@ -1,6 +1,8 @@
+import { backCode } from "./cart";
+
 export const LoginUser = async (email: String, password: String) => {
   try {
-    const res = await fetch(`http://localhost:5000/user/login`, {
+    const res = await fetch(`${backCode}/user/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
