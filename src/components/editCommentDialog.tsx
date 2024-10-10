@@ -7,7 +7,7 @@ import {
   DialogDescription,
   DialogHeader,
   DialogTitle,
-  DialogTrigger
+  DialogTrigger,
 } from "@/components/ui/dialog";
 import { Button } from "./ui/button";
 import { useState } from "react";
@@ -17,7 +17,7 @@ export default function EditComment({
   open,
   setOpen,
   reset,
-  slug
+  slug,
 }: {
   open: boolean;
   setOpen: any;

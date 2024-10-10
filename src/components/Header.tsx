@@ -13,6 +13,7 @@ import {
 
 export default function Header() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  
   useEffect(() => {
     setIsLoggedIn(checkTokenValidation());
   }, []);

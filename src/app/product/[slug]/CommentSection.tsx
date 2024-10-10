@@ -4,7 +4,7 @@ import StarRating from "./StarRating";
 import {
   deleteComment,
   fetchComments,
-  postComment
+  postComment,
 } from "@/app/services/comment";
 import { Edit, Star, Trash } from "lucide-react";
 import { Dialog } from "@/components/ui/dialog";
