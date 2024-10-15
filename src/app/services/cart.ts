@@ -1,11 +1,11 @@
-export const backCode = "http://localhost:5001";
+export const backCode = "http://localhost:5000";
 
 export const getCartItems = async () => {
   const token = localStorage.getItem("Authorization") || "";
   try {
     const res = await fetch(`${backCode}/getCart`, {
       method: "GET",
-      headers: { "Content-Type": "application/json", authToken: token }
+      headers: { "Content-Type": "application/json", authToken: token },
     });
     if (!res.ok) {
       console.log("backend alda ym shigee");
@@ -28,8 +28,8 @@ export const deleteCartItems = async (productId: string, size: string) => {
       headers: { "Content-Type": "application/json", authToken: token },
       body: JSON.stringify({
         productId,
-        size
-      })
+        size,
+      }),
     });
     if (!res.ok) {
       console.error("backend error");
@@ -51,13 +51,13 @@ export const addToCart = async (
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        authToken: token
+        authToken: token,
       },
       body: JSON.stringify({
         productId,
         size,
-        quantity
-      })
+        quantity,
+      }),
     });
     if (!res.ok) {
       console.error("backend error");

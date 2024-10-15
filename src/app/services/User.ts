@@ -9,8 +9,8 @@ import * as yup from "yup";
 interface User {
   userName: string;
   email: string;
-  phoneNumber: String,
-  address: String,
+  phoneNumber: String;
+  address: String;
 }
 
 const validationSchema = yup.object({
@@ -27,13 +27,11 @@ const initialValues = {
   address: "",
 };
 
-
-
-export const  FindUser = async () => {
+export const FindUser = async () => {
   const token = localStorage.getItem("Authorization") || "";
   const res = await fetch(`${backCode}/user/get`, {
     method: "GET",
-    headers: { "Content-Type": "application/json", authToken: token }
+    headers: { "Content-Type": "application/json", authToken: token },
   });
   const data = await res.json();
   return data;
@@ -43,15 +41,15 @@ export const editUser = async (
   userName: string,
   email: string,
   phoneNumber: string,
-  address: string,
+  address: string
 ) => {
   const token = localStorage.getItem("Authorization") || "";
-  console.log("token ", token)
+  console.log("token ", token);
   try {
     const res = await fetch(`${backCode}/user/edit`, {
       method: "PUT",
       headers: { "Content-Type": "application/json", authToken: token },
-      body: JSON.stringify({ userName, email, phoneNumber, address })
+      body: JSON.stringify({ userName, email, phoneNumber, address }),
     });
   } catch (error) {
     console.error("Can't update user information");
