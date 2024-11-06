@@ -1,4 +1,4 @@
-export const backCode = "http://localhost:5000";
+export const backCode = "https://team-1-backend-avyziosdk-zoljargal2004s-projects.vercel.app";
 
 export const getCartItems = async () => {
   const token = localStorage.getItem("Authorization") || "";
