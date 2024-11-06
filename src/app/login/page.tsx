@@ -32,6 +32,7 @@ export default function Home() {
           }}
         />
         <input
+        type="password"
           className="bg-white mb-6 w-full bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-3xl px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"
           placeholder="Нууц үг"
           value={password}
@@ -49,7 +50,7 @@ export default function Home() {
         <h4 className="mb-14 text-center underline text-gray-500">
           Нууц үг мартсан
         </h4>
-        <button className="w-full border-2 border-blue-500 border-solid  text-blue-500 font-bold py-2 px-4 rounded-full">
+        <button className="w-full border-2 border-blue-500 border-solid  text-blue-500 font-bold py-2 px-4 rounded-full" onClick={()=>router.push("/register")}>
           Бүртгүүлэх
         </button>
       </div>

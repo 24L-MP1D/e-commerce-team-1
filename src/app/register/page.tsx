@@ -2,6 +2,8 @@
 
 import { useState } from "react"
 import { RegisterUser } from "../services/Register";
+import { useRouter } from "next/navigation";
+import {  useToast } from "@/hooks/use-toast";
 
 export default function Home() {
   const [name, setName] = useState("");
@@ -9,6 +11,18 @@ export default function Home() {
   const [password, setPassword] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
 
+  const [suxeed, setSuxeed]  = useState(false)
+
+  const Register = async() => {
+    const res = await RegisterUser(name, email, password)
+   
+    setSuxeed(res)
+  }
+  if(suxeed){
+    alert("Амжилттай бүргэлээ")
+  }
+
+  
 
   console.log({ name, email, password, passwordConfirm });
 
@@ -21,6 +35,8 @@ export default function Home() {
 
   const emailIsValid = /[A-Za-z0-9\._%+\-]+@[A-Za-z0-9\.\-]+\.[A-Za-z]{2,}/.test(email);
   const isValid = hasUppercase && hasLowercase && hasNumber && hasSpecialChar && name.length > 1 && emailIsValid;
+
+  const router = useRouter()
 
   return <div className="m-auto h-[1100px] bg-gray-100">
     <h1 className="text-center pt-72 font-bold text-3xl mb-4">Бүртгүүлэх</h1>
@@ -41,8 +57,8 @@ export default function Home() {
           <li className={hasSpecialChar ? "text-green-600" : "text-red-600"}>Тэмдэгт орсон байх</li>
         </ul>
       </h4>
-      <button className="mb-16 w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full text-center disabled:opacity-30 disabled:cursor-not-allowed" onClick={()=>{RegisterUser(name, email, password)}} disabled={!isValid}>Үүсгэх</button>
-      <button className="w-full border-2 border-blue-500 border-solid  text-blue-500 font-bold py-2 px-4 rounded-full">Нэвтрэх</button>
+      <button className="mb-16 w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full text-center disabled:opacity-30 disabled:cursor-not-allowed" onClick={()=>{Register()}} disabled={!isValid}>Үүсгэх</button>
+      <button className="w-full border-2 border-blue-500 border-solid  text-blue-500 font-bold py-2 px-4 rounded-full" onClick={()=>{router.push('/login')}}>Нэвтрэх</button>
     </div>
   </div>
 }

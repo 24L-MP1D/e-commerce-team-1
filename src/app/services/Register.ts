@@ -14,12 +14,11 @@ export const RegisterUser = async (
             body: JSON.stringify({ name: name, email: email, password: password})
         });
         if (!res.ok) {
-            throw new Error(`HTTP error! status ${res.status}`);
+            return false
         }
-        const data = await res.json();
-        return data;
+        return true
     } catch (error) {
         console.error("Error:", error);
-        return [];
+        return false;
     }
 };
