@@ -5,7 +5,7 @@ import { getCategories } from "../services/category";
 import { Checkbox } from "@/components/ui/checkbox";
 import { getProductData } from "../services/Product";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { Item } from "../page";
+import { Item, Loading } from "../page";
 import path from "path";
 
 type Category = {
@@ -36,6 +36,10 @@ export default function Home() {
   useEffect(() => {
     loadData();
   }, [search]);
+
+  if(!data.length){
+    return <Loading/>
+  }
 
   return (
     <div className="w-full max-w-[1040px] flex gap-5 mx-auto mt-14 mb-28">

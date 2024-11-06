@@ -22,10 +22,13 @@ export default function Header() {
   return (
     <main className="bg-black">
       <div className="max-w-[1100px] m-auto flex p-4">
-        <div className="flex pl-2">
+        <div className="flex pl-2 items-center">
+          <a href="/" className="flex items-center gap-4">
           <img src="Logo.png" alt="Logo" />
-          <h1 className="text-white mt-2 ml-2">ECOMMERCE</h1>
-          <a href="/category" className="text-white pl-4 mt-2">
+          <h1 className="text-white">ECOMMERCE</h1>
+          </a>
+          
+          <a href="/category" className="text-white pl-4">
             Ангилал
           </a>
         </div>

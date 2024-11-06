@@ -5,15 +5,32 @@ import { changeSavedProduct, getSavedProducts } from "../services/Product";
 import LoginWrapper from "../context/LoginWrapper";
 import { XyzTransition } from "@animxyz/react";
 import { Heart } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { Loading } from "../page";
 
 export default function Page() {
   const [savedProds, setSavedProds] = useState([]);
+  const [loading, setLoading] = useState(true)
   const getSavedItems = async () => {
     setSavedProds(await getSavedProducts());
+    setLoading(false)
   };
   useEffect(() => {
     getSavedItems();
+
   }, []);
+
+  if(loading){
+    return <Loading/>
+  }
+
+  if(!savedProds.length){
+    return <LoginWrapper>
+      <div className="min-h-[calc(80vh)] w-full text-xl text-center content-center">
+        Хадгалсан бараа олдсонгүй
+      </div>
+    </LoginWrapper>
+  }
   return (
     <LoginWrapper>
       <div className="min-h-[calc(80vh)] w-full">
@@ -34,6 +51,7 @@ export default function Page() {
 const Item = ({ data, update }: { data: any; update: any }) => {
   const prod = data.product; // Get the product directly
   const [visible, setVisible] = useState(true);
+  const router = useRouter()
 
   if (!prod) {
     return null; // Return null if product is not available
@@ -45,6 +63,8 @@ const Item = ({ data, update }: { data: any; update: any }) => {
         className="size-[100px] rounded-[16px] object-cover"
         src={prod.images[0] || ""}
         alt={prod.productName} // Add alt for accessibility
+        onClick={()=>{router.push(`/product/${prod._id}`)}}
+        
       />
       <div className="flex flex-col gap-1 items-start flex-1">
         <span>{prod.productName}</span>
