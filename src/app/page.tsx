@@ -9,6 +9,7 @@ import Link from "next/link";
 import { Heart } from "lucide-react";
 
 import { changeSavedProduct, getProductData } from "./services/Product";
+import { Spinner } from "@/components/spinner";
 
 type Product = {
   _id: string;
@@ -126,6 +127,10 @@ const ItemShowUp = () => {
     loadData();
   }, []);
 
+  if (!products.length){
+    return <Loading/>
+  }
+
   return (
     <div className="grid grid-cols-4 gap-x-5 gap-y-12 mt-4 mb-25">
       {products.slice(1).map((product, index) => {
@@ -143,6 +148,10 @@ const ItemShowUp = () => {
     </div>
   );
 };
+
+export const Loading = () => {
+  return <div className="flex gap-4 items-center h-[60vh] justify-center text-xl"><Spinner/><span>Уншиж байна</span></div>
+}
 
 export default function Home() {
   return (
