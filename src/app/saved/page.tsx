@@ -6,7 +6,7 @@ import LoginWrapper from "../context/LoginWrapper";
 import { XyzTransition } from "@animxyz/react";
 import { Heart } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { Loading } from "../page";
+import { Loading } from "@/components/loading";
 
 export default function Page() {
   const [savedProds, setSavedProds] = useState([]);

@@ -1,7 +1,7 @@
 "use client";
 
 import { Check, Trash } from "lucide-react";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 
 import FirstStep from "./firstStep";
 import SecondStep from "./secondStep";
@@ -13,6 +13,12 @@ import { usePathname } from "next/navigation";
 import OrderDetailsWrapper from "../context/OrderDetails";
 
 const Home = () => {
+  return <Suspense>
+    <FML/>
+  </Suspense>
+}
+
+const FML = () => {
   const search = useSearchParams();
   const router = useRouter();
   const pathName = usePathname();
@@ -25,8 +31,9 @@ const Home = () => {
   }, [activeStep]);
 
   return (
+    <Suspense fallback={<div>Loading...</div>}>
     <div className="min-h-[70vh]">
-      <div className=" flex flex-col gap-[58px] items-center m-auto mt-7 ">
+      <div className="flex flex-col gap-[58px] items-center m-auto mt-7 ">
         <OrderDetailsWrapper>
           <Step activeStep={activeStep} />
           {(activeStep == 1 && (
@@ -60,6 +67,8 @@ const Home = () => {
         </OrderDetailsWrapper>
       </div>
     </div>
+  </Suspense>
+  
   );
 };
 

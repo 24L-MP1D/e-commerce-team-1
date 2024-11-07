@@ -6,10 +6,8 @@ import { useEffect, useState } from "react";
 import { getCartItems } from "../services/cart";
 
 const ThirdStep = ({ preStep }: { preStep: any }) => {
-  const [data, setData] = useState([
-    { productId: { images: [], id: "", price: 0 }, size: "", qty: 0 },
-  ]);
-  const getTotalAmount = (lis: []) => {
+  const [data, setData] = useState<any[]>([]);
+  const getTotalAmount = (lis: any[]) => {
     let total = 0;
     for (let i in lis) {
       total += lis[i].qty * lis[i].productId.price;

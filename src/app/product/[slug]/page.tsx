@@ -8,9 +8,9 @@ import { Button } from "@/components/ui/button";
 import { AuthProvider } from "./AuthContext";
 import CommentSection from "./CommentSection";
 import { useRouter } from "next/navigation";
-import { Item } from "@/app/page";
 import { getProductData } from "@/app/services/Product";
 import { addToCart } from "@/app/services/cart";
+import { Item } from "@/components/item";
 
 interface Review {
   reviewer: string;
@@ -49,7 +49,7 @@ interface ProductQuantityProps {
 const ProductQuantity: React.FC<ProductQuantityProps> = ({
   quantity,
   onDecrease,
-  onIncrease
+  onIncrease,
 }) => {
   return (
     <div className="flex flex-col">
@@ -77,8 +77,8 @@ const ProductQuantity: React.FC<ProductQuantityProps> = ({
 export default function Home({ params }: { params: { slug: string } }) {
   const [saved, setSaved] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
-  const [selectedImage, setSelectedImage] = useState(null);
-  const [products, setProducts] = useState<Product[]>([]);
+  const [selectedImage, setSelectedImage] = useState("");
+  const [products, setProducts] = useState<any>();
   const [chooseSize, setChooseSize] = useState<Size[]>([
     { size: "Free", qty: 10 },
     { size: "S", qty: 5 },
@@ -86,7 +86,7 @@ export default function Home({ params }: { params: { slug: string } }) {
     { size: "L", qty: 3 },
     { size: "XL", qty: 2 },
     { size: "2XL", qty: 0 },
-    { size: "3XL", qty: 1 }
+    { size: "3XL", qty: 1 },
   ]);
   const [selectedSize, setSelectedSize] = useState<string | "">("");
   const [showReviews, setShowReviews] = useState(false);
@@ -115,7 +115,7 @@ export default function Home({ params }: { params: { slug: string } }) {
   };
 
   const handleProductChange = (productId: string) => {
-    const product = products.find((p) => p._id === productId);
+    const product = products.find((p: any) => p._id === productId);
     if (product) {
       router.push(`${product._id}`);
       setQuantity(1);
@@ -173,7 +173,7 @@ export default function Home({ params }: { params: { slug: string } }) {
             className="w-[422px] h-[521px] bg-gray-500 rounded-2xl"
             style={{
               backgroundImage: `url(${selectedImage})`,
-              backgroundSize: "cover"
+              backgroundSize: "cover",
             }}
           ></div>
         </div>
@@ -259,12 +259,14 @@ export default function Home({ params }: { params: { slug: string } }) {
         <p className="text-3xl font-bold">Холбоотой бараа</p>
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-[21px] max-w-[1039px]">
           {products.map((product: Product) => (
-            <Item
-              key={product._id}
-              data={product}
-              likeable={true}
-              onClick={() => handleProductChange(product._id)}
-            />
+            <div onClick={() => handleProductChange(product._id)}>
+              <Item
+                key={product._id}
+                data={{ ...product, isSelected: false, qty: 0, size: "" }}
+                likeable={true}
+                className=""
+              />
+            </div>
           ))}
         </div>
       </div>

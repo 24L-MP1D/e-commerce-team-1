@@ -10,6 +10,8 @@ import { Heart } from "lucide-react";
 
 import { changeSavedProduct, getProductData } from "./services/Product";
 import { Spinner } from "@/components/spinner";
+import { Item } from "@/components/item";
+import { Loading } from "@/components/loading";
 
 type Product = {
   _id: string;
@@ -68,55 +70,6 @@ const Hero = () => {
   );
 };
 
-export const Item = ({
-  data,
-  className,
-  likeable,
-}: {
-  data: Product;
-  className: string | "";
-  likeable: boolean;
-}) => {
-  const [saved, setSaved] = useState(data.isSelected);
-  const fixedPrice: number =
-    data.price *
-    ((data.salePercent && 1 - Number(data.salePercent) / 100) || 1);
-
-  return (
-    <div className={`w-full flex flex-col gap-1 z-10 relative ${className} `}>
-      <Link
-        className="mg-1 rounded-[16px] overflow-hidden w-full"
-        href={`/product/${data._id}`}
-      >
-        <img className="w-full" src={data.images[0] || punchbag.src} />
-      </Link>
-
-      <span>{data.productName}</span>
-      <div className="flex items-center gap-2">
-        <span className="font-bold">{fixedPrice}₮</span>
-        {data.salePercent && (
-          <>
-            <span className="line-through text-[12px] text-[#71717A]">
-              {data.price}₮
-            </span>
-            <span className="text-[#EF4444] font-bold">{data.salePercent}</span>
-          </>
-        )}
-      </div>
-      {likeable && (
-        <button
-          onClick={() => {
-            setSaved(!saved);
-            changeSavedProduct(data._id, saved);
-          }}
-          className="z-50 right-2 top-2 absolute p-2"
-        >
-          <Heart fill={saved ? "black" : "none"} />
-        </button>
-      )}
-    </div>
-  );
-};
 
 const ItemShowUp = () => {
   const [products, setProducts] = useState<Product[]>([]);
@@ -149,9 +102,7 @@ const ItemShowUp = () => {
   );
 };
 
-export const Loading = () => {
-  return <div className="flex gap-4 items-center h-[60vh] justify-center text-xl"><Spinner/><span>Уншиж байна</span></div>
-}
+
 
 export default function Home() {
   return (
