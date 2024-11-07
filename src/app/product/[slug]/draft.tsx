@@ -74,9 +74,9 @@ const ProductQuantity: React.FC<ProductQuantityProps> = ({
 
 export default function Home({ params }: { params: { slug: string } }) {
   const [saved, setSaved] = useState(false);
-  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
-  const [products, setProducts] = useState<Product[]>([]);
-  const [chooseSize, setChooseSize] = useState<Size[]>([
+  const [selectedProduct, setSelectedProduct] = useState<any | null>(null);
+  const [products, setProducts] = useState<any[]>([]);
+  const [chooseSize, setChooseSize] = useState<any[]>([
     { size: "Free" },
     { size: "S" },
     { size: "M" },
@@ -217,12 +217,10 @@ export default function Home({ params }: { params: { slug: string } }) {
               </Button>
             </div>
             <div className="flex gap-4 text-sm">
-              <AuthProvider>
-                <CommentSection></CommentSection>
-              </AuthProvider>
+              
               {showReviews && selectedProduct.reviews && (
                 <div className="mt-4">
-                  {selectedProduct.reviews.map((review, index) => (
+                  {selectedProduct.reviews.map((review: { reviewer: string | number | bigint | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | Promise<React.AwaitedReactNode> | null | undefined; rating: number; comment: string | number | bigint | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | Promise<React.AwaitedReactNode> | null | undefined; }, index: React.Key | null | undefined) => (
                     <div
                       key={index}
                       className="mb-4 p-4 border border-gray-200 rounded"

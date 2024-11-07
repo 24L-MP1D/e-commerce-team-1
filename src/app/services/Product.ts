@@ -21,10 +21,10 @@ export const changeSavedProduct = async (proId: string, saved: boolean) => {
 };
 
 export const getProductData = async (
-  category: string[] | undefined,
-  size: string[] | undefined,
-  id: string | undefined,
-  name: string | undefined
+  category: string[] | undefined =undefined,
+  size: string[] | undefined =undefined,
+  id: string | undefined =undefined,
+  name: string | undefined = undefined
 ) => {
   const token = localStorage.getItem("Authorization") || "";
   try {

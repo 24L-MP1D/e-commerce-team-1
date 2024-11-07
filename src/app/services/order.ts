@@ -6,7 +6,7 @@ export const addOrder = async (
   info: string,
   amountPaid: number,
   orderType: string,
-  details: []
+  details: any[]
 ) => {
   const token = localStorage.getItem("Authorization") || "";
 

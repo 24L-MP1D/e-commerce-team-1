@@ -3,7 +3,7 @@
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useFormik } from "formik";
 import * as yup from "yup";
-import { useState } from "react";
+import { Suspense, useState } from "react";
 
 import {
   Accordion,
@@ -26,6 +26,7 @@ const Home = () => {
   };
 
   return (
+    <Suspense>
     <div className="h-[100vh] w-full">
       <div className="max-w-[884px] mx-auto flex gap-5 mt-[104px]">
         <div className="flex-col flex gap-1 min-w-[244px]">
@@ -49,6 +50,7 @@ const Home = () => {
         <Hero />
       </div>
     </div>
+    </Suspense>
   );
 };
 

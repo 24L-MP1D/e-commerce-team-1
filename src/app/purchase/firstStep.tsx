@@ -15,9 +15,9 @@ const FirstStep = ({
   nextStep: any;
 }) => {
   const [data, setData] = useState([
-    { productId: { images: [], id: "" }, size: "", qty: 0 }
+    { productId: { images: [], id: "", productName: "", price: 0, _id: "" }, size: "", qty: 0 }
   ]);
-  const getTotalAmount = (lis: []) => {
+  const getTotalAmount = (lis: any[]) => {
     let total = 0;
     for (let i in lis) {
       total += lis[i].qty * lis[i].productId.price;

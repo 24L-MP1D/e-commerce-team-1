@@ -28,10 +28,8 @@ const SecondStep = ({
 };
 
 const Basket = ({ amountOfItems }: { amountOfItems: number }) => {
-  const [data, setData] = useState([
-    { productId: { images: [], id: "", price: 0 }, size: "", qty: 0 },
-  ]);
-  const getTotalAmount = (lis: []) => {
+  const [data, setData] = useState<any[]>([]);
+  const getTotalAmount = (lis: any[]) => {
     let total = 0;
     for (let i in lis) {
       total += lis[i].qty * lis[i].productId.price;
@@ -52,7 +50,7 @@ const Basket = ({ amountOfItems }: { amountOfItems: number }) => {
         <span className="text-[#71717A]">({data.length})</span>
       </div>
       <div className="flex flex-col gap-4">
-        {data.map((item) => (
+        {data.map((item ) => (
           <SecondStepItem
             name={`${item.productId.productName} : ${item.size}`}
             qty={item.qty}
